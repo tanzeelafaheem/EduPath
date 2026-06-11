@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import {
   Home,
   GraduationCap,
@@ -18,27 +18,32 @@ export default function Sidebar({
   onClose,
 }: SidebarProps) {
   const navItems = [
-    {
-      label: "Home",
-      icon: <Home size={20} />,
-    },
-    {
-      label: "College Search",
-      icon: <GraduationCap size={20} />,
-    },
-    {
-      label: "Saved",
-      icon: <Bookmark size={20} />,
-    },
-    {
-      label: "Compare",
-      icon: <ArrowLeftRight size={20} />,
-    },
-    {
-      label: "Settings",
-      icon: <Settings size={20} />,
-    },
-  ];
+  {
+    label: "Home",
+    href: "/",
+    icon: <Home size={20} />,
+  },
+  {
+    label: "College Search",
+    href: "/colleges",
+    icon: <GraduationCap size={20} />,
+  },
+  {
+    label: "Saved",
+    href: "/saved",
+    icon: <Bookmark size={20} />,
+  },
+  {
+    label: "Compare",
+    href: "/compare",
+    icon: <ArrowLeftRight size={20} />,
+  },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: <Settings size={20} />,
+  },
+];
 
   return (
     <>
@@ -69,14 +74,16 @@ export default function Sidebar({
 
           <ul className="space-y-2">
             {navItems.map((item) => (
-              <li key={item.label}>
-                <button
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100"
-                >
-                  {item.icon}
-                  {item.label}
-                </button>
-              </li>
+             <li key={item.label}>
+  <Link
+    href={item.href}
+    onClick={onClose}
+    className="flex w-full items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 transition"
+  >
+    {item.icon}
+    <span>{item.label}</span>
+  </Link>
+</li>
             ))}
           </ul>
 
