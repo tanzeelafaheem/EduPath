@@ -1,42 +1,87 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {
+  Home,
+  GraduationCap,
+  Bookmark,
+  ArrowLeftRight,
+  Settings,
+} from "lucide-react";
 
-const links = [
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "College Search", href: "/search" },
-  { name: "Saved", href: "/saved" },
-  { name: "Compare", href: "/compare" },
-  { name: "Settings", href: "/settings" },
-];
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-export default function Sidebar() {
-  const pathname = usePathname();
+export default function Sidebar({
+  isOpen,
+  onClose,
+}: SidebarProps) {
+  const navItems = [
+    {
+      label: "Home",
+      icon: <Home size={20} />,
+    },
+    {
+      label: "College Search",
+      icon: <GraduationCap size={20} />,
+    },
+    {
+      label: "Saved",
+      icon: <Bookmark size={20} />,
+    },
+    {
+      label: "Compare",
+      icon: <ArrowLeftRight size={20} />,
+    },
+    {
+      label: "Settings",
+      icon: <Settings size={20} />,
+    },
+  ];
 
   return (
-    <aside className="w-64 bg-white border-r">
-      <div className="p-6">
-        <h1 className="text-2xl font-bold">
-          EduPath
-        </h1>
-      </div>
+    <>
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40"
+          onClick={onClose}
+        />
+      )}
 
-      <nav className="px-4">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`block px-4 py-3 rounded-lg mb-2 ${
-              pathname === link.href
-                ? "bg-black text-white"
-                : "hover:bg-gray-100"
-            }`}
-          >
-            {link.name}
-          </Link>
-        ))}
-      </nav>
-    </aside>
+      <aside
+        className={`
+        fixed left-0 top-0 z-50 h-screen w-72
+        bg-white border-r border-slate-100
+        transition-transform duration-300
+        ${
+          isOpen
+            ? "translate-x-0"
+            : "-translate-x-full"
+        }
+      `}
+      >
+        <div className="p-6">
+
+          <h2 className="text-2xl font-bold text-blue-700 mb-10">
+            EduPath
+          </h2>
+
+          <ul className="space-y-2">
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100"
+                >
+                  {item.icon}
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+        </div>
+      </aside>
+    </>
   );
 }

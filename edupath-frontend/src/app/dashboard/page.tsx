@@ -1,11 +1,7 @@
-import AppLayout from "@/components/layout/AppLayout";
-
-export default function DashboardPage() {
+export default function Dashboard() { 
   return (
-    <AppLayout>
-      <h1 className="text-3xl font-bold">
-        Dashboard
-      </h1>
-    </AppLayout>
+    <div>
+      <h1>Dashboard</h1>
+    </div>
   );
 }
