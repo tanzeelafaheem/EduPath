@@ -9,14 +9,33 @@ import {
   LogOut,
   ChevronRight,
 } from "lucide-react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 export default function Settings() {
-   const [user, setUser] = useState(null);
-   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-  };
+
+const [user, setUser] = useState<any>(null);
+
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+  const handleLogout = () => {
+  const confirmLogout = window.confirm(
+    "Are you sure you want to logout?"
+  );
+
+  if (!confirmLogout) return;
+
+  localStorage.removeItem("user");
+  setUser(null);
+
+  alert("Logged out successfully!");
+
+  window.location.href = "/";
+};
   return (
     <section className="min-h-screen bg-slate-50 px-6 py-10">
       <div className="max-w-4xl mx-auto">

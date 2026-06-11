@@ -29,7 +29,7 @@ export default function LoginPage() {
     );
 
     if (!user) {
-      alert("Invalid Credentials");
+      alert("Invalid credentials");
       return;
     }
 
@@ -38,8 +38,6 @@ export default function LoginPage() {
       JSON.stringify(user)
     );
 
-    alert("Login Successful");
-
     router.push("/");
   };
 
@@ -47,57 +45,86 @@ export default function LoginPage() {
     e: React.FormEvent
   ) => {
     e.preventDefault();
-
-    alert(
-      "Signup successful (mock functionality)"
-    );
-
+    alert("Mock signup successful");
     setIsLogin(true);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#f8f9ff] flex items-center justify-center px-4 py-10">
 
-      <div className="max-w-5xl w-full bg-white rounded-3xl overflow-hidden shadow-xl grid md:grid-cols-2">
+      <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-[0_10px_40px_rgba(0,0,0,0.08)] grid md:grid-cols-2">
 
-        {/* LEFT SIDE */}
+        {/* LEFT PANEL */}
 
-        <div className="hidden md:flex relative bg-blue-700 text-white p-12 flex-col justify-between">
-
+        <div
+          className="hidden md:flex relative flex-col justify-between p-12 text-white min-h-[700px]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,40,142,0.82), rgba(0,40,142,0.82)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <div>
-            <span className="bg-white/20 px-4 py-1 rounded-full text-sm">
-              Academic Excellence
-            </span>
 
-            <h1 className="text-5xl font-bold mt-6 leading-tight">
+            <div className="inline-flex rounded-full bg-white/20 px-4 py-2 backdrop-blur-md">
+              Academic Excellence
+            </div>
+
+            <h1 className="mt-8 text-6xl font-bold leading-tight">
               Your Future,
               <br />
               Mapped Out.
             </h1>
 
-            <p className="mt-4 text-blue-100">
-              Join thousands of students
-              discovering their ideal
-              university through EduPath.
+            <p className="mt-6 max-w-md text-lg text-blue-100">
+              Join over 50,000 students finding
+              their perfect academic match
+              through data-driven insights and
+              expert guidance.
             </p>
+
           </div>
 
           <div>
+
+            <div className="flex -space-x-3 mb-4">
+
+              <img
+                src="https://i.pravatar.cc/100?img=1"
+                className="w-12 h-12 rounded-full border-2 border-white"
+              />
+
+              <img
+                src="https://i.pravatar.cc/100?img=2"
+                className="w-12 h-12 rounded-full border-2 border-white"
+              />
+
+              <img
+                src="https://i.pravatar.cc/100?img=3"
+                className="w-12 h-12 rounded-full border-2 border-white"
+              />
+
+            </div>
+
             <p className="text-blue-100">
               Trusted by scholars worldwide
             </p>
+
           </div>
+
+          <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/20 blur-3xl" />
         </div>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT PANEL */}
 
-        <div className="p-10">
+        <div className="p-10 md:p-14 flex flex-col justify-center">
 
-          <div className="flex border-b mb-8">
+          <div className="flex mb-10 border-b">
 
             <button
               onClick={() => setIsLogin(true)}
-              className={`flex-1 py-4 font-semibold ${
+              className={`flex-1 pb-4 font-semibold transition ${
                 isLogin
                   ? "border-b-2 border-blue-700 text-blue-700"
                   : "text-gray-500"
@@ -108,7 +135,7 @@ export default function LoginPage() {
 
             <button
               onClick={() => setIsLogin(false)}
-              className={`flex-1 py-4 font-semibold ${
+              className={`flex-1 pb-4 font-semibold transition ${
                 !isLogin
                   ? "border-b-2 border-blue-700 text-blue-700"
                   : "text-gray-500"
@@ -121,51 +148,65 @@ export default function LoginPage() {
 
           {isLogin ? (
             <>
-              <h2 className="text-3xl font-bold">
+              <h2 className="text-4xl font-bold text-slate-900">
                 Welcome Back
               </h2>
 
-              <p className="text-gray-500 mt-2">
+              <p className="mt-2 text-slate-500">
                 Access your personalized
-                dashboard
+                college roadmap.
               </p>
 
               <form
                 onSubmit={handleLogin}
-                className="space-y-4 mt-8"
+                className="mt-8 space-y-5"
               >
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full border rounded-xl p-3"
-                  value={email}
-                  onChange={(e) =>
-                    setEmail(e.target.value)
-                  }
-                />
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full border rounded-xl p-3"
-                  value={password}
-                  onChange={(e) =>
-                    setPassword(
-                      e.target.value
-                    )
-                  }
-                />
+                <div>
+                  <label className="text-sm font-medium text-gray-600">
+                    Email Address
+                  </label>
+
+                  <input
+                    type="email"
+                    placeholder="student@edupath.com"
+                    value={email}
+                    onChange={(e) =>
+                      setEmail(e.target.value)
+                    }
+                    className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-700"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-600">
+                    Password
+                  </label>
+
+                  <input
+                    type="password"
+                    placeholder="123456"
+                    value={password}
+                    onChange={(e) =>
+                      setPassword(
+                        e.target.value
+                      )
+                    }
+                    className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-700"
+                  />
+                </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-700 text-white py-3 rounded-xl"
+                  className="w-full rounded-xl bg-blue-700 py-3 font-semibold text-white hover:bg-blue-800 transition"
                 >
-                  Login
+                  Login to Dashboard
                 </button>
+
               </form>
 
-              <div className="mt-6 p-4 rounded-xl bg-slate-100 text-sm">
-                <p className="font-semibold">
+              <div className="mt-6 rounded-xl bg-slate-100 p-4">
+                <p className="font-semibold mb-2">
                   Demo Credentials
                 </p>
 
@@ -179,86 +220,47 @@ export default function LoginPage() {
             </>
           ) : (
             <>
-              <h2 className="text-3xl font-bold">
-                Create Account
+              <h2 className="text-4xl font-bold">
+                Start Your Journey
               </h2>
 
-              <p className="text-gray-500 mt-2">
-                Start your journey
+              <p className="mt-2 text-slate-500">
+                Create your account
               </p>
 
               <form
                 onSubmit={handleSignup}
-                className="space-y-4 mt-8"
+                className="mt-8 space-y-4"
               >
-                <input
-                  placeholder="First Name"
-                  className="w-full border rounded-xl p-3"
-                  value={
-                    signupData.firstName
-                  }
-                  onChange={(e) =>
-                    setSignupData({
-                      ...signupData,
-                      firstName:
-                        e.target.value,
-                    })
-                  }
-                />
+                <div className="grid grid-cols-2 gap-4">
+
+                  <input
+                    placeholder="First Name"
+                    className="rounded-xl border px-4 py-3"
+                  />
+
+                  <input
+                    placeholder="Last Name"
+                    className="rounded-xl border px-4 py-3"
+                  />
+
+                </div>
 
                 <input
-                  placeholder="Last Name"
-                  className="w-full border rounded-xl p-3"
-                  value={
-                    signupData.lastName
-                  }
-                  onChange={(e) =>
-                    setSignupData({
-                      ...signupData,
-                      lastName:
-                        e.target.value,
-                    })
-                  }
-                />
-
-                <input
-                  type="email"
                   placeholder="Email"
-                  className="w-full border rounded-xl p-3"
-                  value={
-                    signupData.email
-                  }
-                  onChange={(e) =>
-                    setSignupData({
-                      ...signupData,
-                      email:
-                        e.target.value,
-                    })
-                  }
+                  className="w-full rounded-xl border px-4 py-3"
                 />
 
                 <input
                   type="password"
                   placeholder="Password"
-                  className="w-full border rounded-xl p-3"
-                  value={
-                    signupData.password
-                  }
-                  onChange={(e) =>
-                    setSignupData({
-                      ...signupData,
-                      password:
-                        e.target.value,
-                    })
-                  }
+                  className="w-full rounded-xl border px-4 py-3"
                 />
 
-                <button
-                  type="submit"
-                  className="w-full bg-blue-700 text-white py-3 rounded-xl"
-                >
+                <button className="w-full rounded-xl bg-blue-700 py-3 text-white font-semibold">
                   Create Account
                 </button>
+
               </form>
             </>
           )}
