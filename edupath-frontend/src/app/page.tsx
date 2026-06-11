@@ -25,11 +25,10 @@ export default function HomePage() {
       />
 
       <Navbar
-        isLoggedIn={false}
-        onMenuClick={() =>
-          setIsSidebarOpen(true)
-        }
-      />
+  onMenuClick={() =>
+    setIsSidebarOpen(true)
+  }
+/>
 
       <Hero />
 

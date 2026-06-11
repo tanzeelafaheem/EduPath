@@ -1,16 +1,31 @@
 "use client";
 
 import { Menu, User } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface NavbarProps {
-  isLoggedIn: boolean;
   onMenuClick: () => void;
 }
 
 export default function Navbar({
-  isLoggedIn,
   onMenuClick,
 }: NavbarProps) {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
@@ -18,7 +33,7 @@ export default function Navbar({
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuClick}
-            className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition"
+            className="p-2 rounded-xl text-slate-600 hover:bg-slate-100"
           >
             <Menu size={22} />
           </button>
@@ -28,20 +43,35 @@ export default function Navbar({
           </h1>
         </div>
 
-        {!isLoggedIn ? (
+        {!user ? (
           <div className="flex gap-3">
-            <button className="font-medium text-slate-600">
-              Login
-            </button>
+            <Link href="/login">
+              <button className="font-medium text-slate-600">
+                Login
+              </button>
+            </Link>
 
-            <button className="rounded-xl bg-blue-700 px-4 py-2 text-white">
-              Sign Up
-            </button>
+            <Link href="/login">
+              <button className="rounded-xl bg-blue-700 px-4 py-2 text-white">
+                Sign Up
+              </button>
+            </Link>
           </div>
         ) : (
-          <div className="flex items-center gap-2">
-            <User size={18} />
-            <span>Tanzeela</span>
+          <div className="flex items-center gap-4">
+
+            <div className="flex items-center gap-2">
+              <User size={18} />
+              <span>{user.name}</span>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="rounded-lg bg-red-500 px-3 py-2 text-white"
+            >
+              Logout
+            </button>
+
           </div>
         )}
       </div>
