@@ -11,7 +11,6 @@ export default function CollegeCard({ college }: CollegeCardProps) {
       <img
         src={college.image}
         alt={college.name}
-        {/* FIX: Changed h-112.5 to standard Tailwind utility or explicit bracket notation */}
         className="w-full h-[450px] object-cover" 
       />
 
