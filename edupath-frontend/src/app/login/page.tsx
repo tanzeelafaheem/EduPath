@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiMail, FiLock, FiUser } from "react-icons/fi";
+import { Mail, Lock, User } from "lucide-react";
 import { FaGraduationCap } from "react-icons/fa";
 import { mockUsers } from "@/data/users";
 
@@ -166,7 +166,7 @@ export default function LoginPage() {
                     </label>
 
                     <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
-                      <FiMail className="text-slate-400 z-10" />
+                      <Mail className="text-slate-400" size={18} />
                       <input
                         type="email"
                         placeholder="Enter your email"
@@ -189,7 +189,8 @@ export default function LoginPage() {
                     </label>
 
                     <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
-                      <FiLock className="text-slate-400 z-10" />
+                      <Lock className="text-slate-400" size={18} />
+
                       <input
                         type="password"
                         placeholder="Enter password"
@@ -222,7 +223,7 @@ export default function LoginPage() {
                     </label>
 
                     <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
-                      <FiUser className="text-slate-400 z-10" />
+                <User className="text-slate-400" size={18} />
                       <input
                         type="text"
                         placeholder="Name"
@@ -245,7 +246,7 @@ export default function LoginPage() {
                     </label>
 
                     <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
-                      <FiMail className="text-slate-400 z-10" />
+                      <Mail className="text-slate-400" size={18} />
                       <input
                         type="email"
                         placeholder="Email"
@@ -268,7 +269,7 @@ export default function LoginPage() {
                     </label>
 
                     <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
-                      <FiLock className="text-slate-400 z-10" />
+                      <Lock className="text-slate-400" size={18} />
                       <input
                         type="password"
                         placeholder="Password"

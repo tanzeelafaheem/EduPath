@@ -9,23 +9,21 @@ export default function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-900">
       <Navbar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
+        onMenuClick={() => setSidebarOpen(true)}
       />
 
       <div className="flex">
-        <Sidebar sidebarOpen={sidebarOpen} />
+        <Sidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
 
-        <main
-          className={`
-            flex-1 p-6 transition-all duration-300
-          `}
-        >
+        <main className="flex-1 p-6 transition-all duration-300">
           <div className="bg-gray-100 rounded-xl min-h-[85vh] p-6">
             {children}
           </div>
