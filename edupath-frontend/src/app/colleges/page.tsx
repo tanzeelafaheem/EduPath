@@ -18,11 +18,9 @@ export default function HomePage() {
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
       />
-
-      <Navbar
-        isLoggedIn={false}
-        onMenuClick={() => setIsSidebarOpen(true)}
-      />
+<Navbar
+  onMenuClick={() => setIsSidebarOpen(true)}
+/>
 
       <main className="pt-16">
         <Colleges />

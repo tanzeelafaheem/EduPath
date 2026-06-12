@@ -20,9 +20,8 @@ export default function HomePage() {
       />
 
       <Navbar
-        isLoggedIn={false}
-        onMenuClick={() => setIsSidebarOpen(true)}
-      />
+  onMenuClick={() => setIsSidebarOpen(true)}
+/>
 
       <main className="pt-16">
         <Saved />
