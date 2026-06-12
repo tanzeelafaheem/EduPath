@@ -2,19 +2,22 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FiMail, FiLock, FiUser } from "react-icons/fi";
+import { FaGraduationCap } from "react-icons/fa";
 import { mockUsers } from "@/data/users";
 
 export default function LoginPage() {
   const router = useRouter();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
 
   const [signupData, setSignupData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -24,248 +27,275 @@ export default function LoginPage() {
 
     const user = mockUsers.find(
       (u) =>
-        u.email === email &&
-        u.password === password
+        u.email === loginData.email &&
+        u.password === loginData.password
     );
 
     if (!user) {
-      alert("Invalid credentials");
+      alert("Invalid Credentials");
       return;
     }
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(user)
-    );
-
+    localStorage.setItem("user", JSON.stringify(user));
     router.push("/");
   };
 
-  const handleSignup = (
-    e: React.FormEvent
-  ) => {
+  const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Mock signup successful");
-    setIsLogin(true);
+
+    const newUser = {
+      id: Date.now(),
+      ...signupData,
+    };
+
+    localStorage.setItem("user", JSON.stringify(newUser));
+    alert("Account Created Successfully");
+    router.push("/");
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff] flex items-center justify-center px-4 py-10">
+    <main className="min-h-screen bg-white flex">
+      {/* Left Section — Retains your precise original aspect and alignment */}
+      <div className="hidden lg:flex w-1/2 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-700 via-blue-500 to-cyan-400" />
 
-      <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-[0_10px_40px_rgba(0,0,0,0.08)] grid md:grid-cols-2">
+        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-white/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
 
-        {/* LEFT PANEL */}
+        <div className="relative z-10 flex flex-col justify-center px-16 text-white">
+          <span className="uppercase tracking-[0.3em] text-sm text-white/80">
+            College Discovery Platform
+          </span>
 
-        <div
-          className="hidden md:flex relative flex-col justify-between p-12 text-white min-h-[700px]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(0,40,142,0.82), rgba(0,40,142,0.82)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div>
+          <h1 className="mt-6 text-6xl font-bold leading-tight">
+            Discover
+            <br />
+            Compare
+            <br />
+            Apply
+          </h1>
 
-            <div className="inline-flex rounded-full bg-white/20 px-4 py-2 backdrop-blur-md">
-              Academic Excellence
+          <p className="mt-6 max-w-md text-lg text-white/90">
+            Explore colleges, compare rankings, placements, fees,
+            and courses. Find the perfect college for your future.
+          </p>
+
+          <div className="grid grid-cols-3 gap-4 mt-12">
+            <div className="rounded-2xl bg-white/15 backdrop-blur-md p-5">
+              <h2 className="text-3xl font-bold">500+</h2>
+              <p className="text-sm text-white/80 mt-1">Colleges</p>
             </div>
 
-            <h1 className="mt-8 text-6xl font-bold leading-tight">
-              Your Future,
-              <br />
-              Mapped Out.
-            </h1>
-
-            <p className="mt-6 max-w-md text-lg text-blue-100">
-              Join over 50,000 students finding
-              their perfect academic match
-              through data-driven insights and
-              expert guidance.
-            </p>
-
-          </div>
-
-          <div>
-
-            <div className="flex -space-x-3 mb-4">
-
-              <img
-                src="https://i.pravatar.cc/100?img=1"
-                className="w-12 h-12 rounded-full border-2 border-white"
-              />
-
-              <img
-                src="https://i.pravatar.cc/100?img=2"
-                className="w-12 h-12 rounded-full border-2 border-white"
-              />
-
-              <img
-                src="https://i.pravatar.cc/100?img=3"
-                className="w-12 h-12 rounded-full border-2 border-white"
-              />
-
+            <div className="rounded-2xl bg-white/15 backdrop-blur-md p-5">
+              <h2 className="text-3xl font-bold">50K+</h2>
+              <p className="text-sm text-white/80 mt-1">Students</p>
             </div>
 
-            <p className="text-blue-100">
-              Trusted by scholars worldwide
-            </p>
-
+            <div className="rounded-2xl bg-white/15 backdrop-blur-md p-5">
+              <h2 className="text-3xl font-bold">95%</h2>
+              <p className="text-sm text-white/80 mt-1">Success Rate</p>
+            </div>
           </div>
-
-          <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/20 blur-3xl" />
-        </div>
-
-        {/* RIGHT PANEL */}
-
-        <div className="p-10 md:p-14 flex flex-col justify-center">
-
-          <div className="flex mb-10 border-b">
-
-            <button
-              onClick={() => setIsLogin(true)}
-              className={`flex-1 pb-4 font-semibold transition ${
-                isLogin
-                  ? "border-b-2 border-blue-700 text-blue-700"
-                  : "text-gray-500"
-              }`}
-            >
-              Login
-            </button>
-
-            <button
-              onClick={() => setIsLogin(false)}
-              className={`flex-1 pb-4 font-semibold transition ${
-                !isLogin
-                  ? "border-b-2 border-blue-700 text-blue-700"
-                  : "text-gray-500"
-              }`}
-            >
-              Sign Up
-            </button>
-
-          </div>
-
-          {isLogin ? (
-            <>
-              <h2 className="text-4xl font-bold text-slate-900">
-                Welcome Back
-              </h2>
-
-              <p className="mt-2 text-slate-500">
-                Access your personalized
-                college roadmap.
-              </p>
-
-              <form
-                onSubmit={handleLogin}
-                className="mt-8 space-y-5"
-              >
-
-                <div>
-                  <label className="text-sm font-medium text-gray-600">
-                    Email Address
-                  </label>
-
-                  <input
-                    type="email"
-                    placeholder="student@edupath.com"
-                    value={email}
-                    onChange={(e) =>
-                      setEmail(e.target.value)
-                    }
-                    className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-700"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-600">
-                    Password
-                  </label>
-
-                  <input
-                    type="password"
-                    placeholder="123456"
-                    value={password}
-                    onChange={(e) =>
-                      setPassword(
-                        e.target.value
-                      )
-                    }
-                    className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-700"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full rounded-xl bg-blue-700 py-3 font-semibold text-white hover:bg-blue-800 transition"
-                >
-                  Login to Dashboard
-                </button>
-
-              </form>
-
-              <div className="mt-6 rounded-xl bg-slate-100 p-4">
-                <p className="font-semibold mb-2">
-                  Demo Credentials
-                </p>
-
-                <p>
-                  Email:
-                  student@edupath.com
-                </p>
-
-                <p>Password: 123456</p>
-              </div>
-            </>
-          ) : (
-            <>
-              <h2 className="text-4xl font-bold">
-                Start Your Journey
-              </h2>
-
-              <p className="mt-2 text-slate-500">
-                Create your account
-              </p>
-
-              <form
-                onSubmit={handleSignup}
-                className="mt-8 space-y-4"
-              >
-                <div className="grid grid-cols-2 gap-4">
-
-                  <input
-                    placeholder="First Name"
-                    className="rounded-xl border px-4 py-3"
-                  />
-
-                  <input
-                    placeholder="Last Name"
-                    className="rounded-xl border px-4 py-3"
-                  />
-
-                </div>
-
-                <input
-                  placeholder="Email"
-                  className="w-full rounded-xl border px-4 py-3"
-                />
-
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full rounded-xl border px-4 py-3"
-                />
-
-                <button className="w-full rounded-xl bg-blue-700 py-3 text-white font-semibold">
-                  Create Account
-                </button>
-
-              </form>
-            </>
-          )}
         </div>
       </div>
-    </div>
+
+      {/* Right Section — Preserves your screen boundaries layout flawlessly */}
+      <div className="flex flex-1 items-center justify-center p-6 bg-slate-50 max-h-screen">
+        <div className="w-full max-w-md">
+          <div className="rounded-[32px] bg-white p-10 shadow-xl border border-slate-200">
+
+            {/* Logo */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
+                <FaGraduationCap size={34} />
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-900 text-lg">
+                  Edupath
+                </h3>
+
+                <p className="text-sm text-slate-500">
+                  Discover Your Future
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-slate-900">
+                Welcome 👋
+              </h2> 
+
+              <p className="mt-2 text-slate-500">
+                {activeTab === "login" ? "Sign in to continue your journey." : "Create an account to begin."}
+              </p>
+            </div>
+
+            {/* Tabs */}
+            <div className="mb-8 flex rounded-xl bg-blue-50 p-1">
+              <button
+                onClick={() => setActiveTab("login")}
+                className={`flex-1 rounded-lg py-3 text-sm font-semibold transition ${
+                  activeTab === "login"
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "text-slate-600"
+                }`}
+              >
+                Login
+              </button>
+
+              <button
+                onClick={() => setActiveTab("signup")}
+                className={`flex-1 rounded-lg py-3 text-sm font-semibold transition ${
+                  activeTab === "signup"
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "text-slate-600"
+                }`}
+              >
+                Sign Up
+              </button>
+            </div>
+
+            {/* Form Box Wrapper with an explicit internal min-height to balance the forms */}
+            <div className="min-h-[360px] relative">
+              {activeTab === "login" ? (
+                <form onSubmit={handleLogin} className="space-y-5">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Email
+                    </label>
+
+                    <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
+                      <FiMail className="text-slate-400 z-10" />
+                      <input
+                        type="email"
+                        placeholder="Enter your email"
+                        required
+                        value={loginData.email}
+                        onChange={(e) =>
+                          setLoginData({
+                            ...loginData,
+                            email: e.target.value,
+                          })
+                        }
+                        className="w-full p-4 pl-3 outline-none relative z-0"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Password
+                    </label>
+
+                    <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
+                      <FiLock className="text-slate-400 z-10" />
+                      <input
+                        type="password"
+                        placeholder="Enter password"
+                        required
+                        value={loginData.password}
+                        onChange={(e) =>
+                          setLoginData({
+                            ...loginData,
+                            password: e.target.value,
+                          })
+                        }
+                        className="w-full p-4 pl-3 outline-none relative z-0"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700 mt-2"
+                  >
+                    Sign In
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleSignup} className="space-y-5">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Full Name
+                    </label>
+
+                    <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
+                      <FiUser className="text-slate-400 z-10" />
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        required
+                        value={signupData.name}
+                        onChange={(e) =>
+                          setSignupData({
+                            ...signupData,
+                            name: e.target.value,
+                          })
+                        }
+                        className="w-full p-4 pl-3 outline-none relative z-0"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Email
+                    </label>
+
+                    <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
+                      <FiMail className="text-slate-400 z-10" />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        required
+                        value={signupData.email}
+                        onChange={(e) =>
+                          setSignupData({
+                            ...signupData,
+                            email: e.target.value,
+                          })
+                        }
+                        className="w-full p-4 pl-3 outline-none relative z-0"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Password
+                    </label>
+
+                    <div className="flex items-center rounded-xl border border-slate-300 bg-white px-4 relative">
+                      <FiLock className="text-slate-400 z-10" />
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        required
+                        value={signupData.password}
+                        onChange={(e) =>
+                          setSignupData({
+                            ...signupData,
+                            password: e.target.value,
+                          })
+                        }
+                        className="w-full p-4 pl-3 outline-none relative z-0"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    Create Account
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }

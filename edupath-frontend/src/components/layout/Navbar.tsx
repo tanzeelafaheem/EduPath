@@ -44,16 +44,10 @@ export default function Navbar({
         </div>
 
         {!user ? (
-          <div className="flex gap-3">
+          <div className="flex gap-3 bg-blue-600 rounded-2xl px-4 py-2 cursor-pointer hover:bg-blue-700">
             <Link href="/login">
-              <button className="font-medium text-slate-600">
-                Login
-              </button>
-            </Link>
-
-            <Link href="/login">
-              <button className="rounded-xl bg-blue-700 px-4 py-2 text-white">
-                Sign Up
+              <button className="font-medium text-white cursor-pointer">
+                Login / Sign Up
               </button>
             </Link>
           </div>
@@ -65,12 +59,7 @@ export default function Navbar({
               <span>{user.name}</span>
             </div>
 
-            <button
-              onClick={handleLogout}
-              className="rounded-lg bg-red-500 px-3 py-2 text-white"
-            >
-              Logout
-            </button>
+
 
           </div>
         )}
