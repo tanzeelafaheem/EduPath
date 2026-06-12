@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import { FaGraduationCap } from "react-icons/fa";
-import { mockUsers } from "../../../public/users";
+import { mockUsers } from "@/data/users";
 
 export default function LoginPage() {
   const router = useRouter();
