@@ -11,7 +11,7 @@ export const mockUsers = [
   },
   {
   email:"tanzeela@gmail.com",
-  password:"tannn",
+  password:"password123",
   name:"Tanzeela"
   }
 ];

@@ -212,6 +212,7 @@ export default function LoginPage() {
                   >
                     Sign In
                   </button>
+                  <p className="justify-center text-center">Demo credentials: tanzeela@gmail.com / password123</p>
                 </form>
               ) : (
                 <form onSubmit={handleSignup} className="space-y-5">
