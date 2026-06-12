@@ -36,7 +36,7 @@ export default function FeaturedUniversities() {
 
                 <div className="mt-4 flex justify-between font-medium">
                   <span>⭐ {college.rating}</span>
-                  <span className="text-blue-700">{college.fee}</span>
+                  <span className="text-blue-700">{college.fees}</span>
                 </div>
 
                 <Link
